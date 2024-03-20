@@ -1,45 +1,46 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Domain.Entities;
+using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class CountryService : ICountryService
+    public class CountryService(ICountryRepository countryRepository) : ICountryService
     {
-        private readonly IPaisRepository _paisRepository;
+        private readonly ICountryRepository _countryRepository = countryRepository;
 
-        public PaisService(IPaisRepository paisRepository)
+        public async Task AddCountry(Country country)
         {
-            _paisRepository = paisRepository;
+            await _countryRepository.AddCountry(country);
         }
 
-        public async Task<PaisDTO> CrearPais(string nombre)
+        public async Task DeleteCountry(long id)
         {
-            // Validar nombre del país
-            if (string.IsNullOrEmpty(nombre))
-            {
-                throw new ArgumentException("El nombre del país es obligatorio.");
-            }
-
-            var pais = new Pais { Nombre = nombre };
-            await _paisRepository.AddAsync(pais);
-            await _paisRepository.SaveChangesAsync();
-
-            return await MapearAPaisDTO(pais);
+            await _countryRepository.DeleteCountry(id);
         }
 
-        // ... otros métodos de la interfaz IPaisService
-
-        private async Task<PaisDTO> MapearAPaisDTO(Pais pais)
+        public async Task<List<Country>> GetAllCountries()
         {
-            // Mapear las propiedades de Pais a PaisDTO
-            // Puedes usar librerías de mapeo automático ( AutoMapper )
-            var ciudadesDTO = await _paisRepository.ObtenerCiudadesPorPaisId(pais.Id);
-            return new PaisDTO
+            return await _countryRepository.GetAllCountries();
+        }
+
+        public async Task<Country?> GetCountryById(long id)
+        {
+            return await GetCountryById(id);
+        }
+
+        public async Task UpdateCountry(Country country)
+        {
+            await _countryRepository.UpdateCountry(country);
+        }
+
+        private static CountryDTO MapToCountryDTO(Country country)
+        {
+            return new CountryDTO
             {
-                Id = pais.Id,
-                Nombre = pais.Nombre,
-                Ciudades = ciudadesDTO.Select(c => new CiudadDTO { Id = c.Id, Nombre = c.Nombre })
+                Id = country.Id,
+                Name = country.Name,
             };
         }
     }
-
 }

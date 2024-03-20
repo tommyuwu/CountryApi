@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class CountryController : Controller
+    public class CountriesController(ICountryService countryService) : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        private readonly ICountryService _countryService = countryService;
+
+        
     }
 }

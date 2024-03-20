@@ -1,9 +1,8 @@
-﻿using Application.DTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Application.Interfaces
+namespace Infrastructure.Interfaces
 {
-    public interface ICityService
+    public interface ICityRepository
     {
         Task<List<City>> GetAllCities();
         Task<City?> GetCityById(long id);

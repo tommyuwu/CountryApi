@@ -2,8 +2,8 @@
 {
     public class CityDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int CountryId { get; set; }
+        public long Id { get; set; }
+        public required string Name { get; set; }
+        public required long CountryId { get; set; }
     }
 }

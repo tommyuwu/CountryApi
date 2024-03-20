@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class CityController : Controller
+    public class CityController(ICityService cityService) : Controller
     {
-        public IActionResult Index()
+        private readonly ICityService _cityService = cityService;
+
+        [HttpGet("city")]
+        public async Task<IActionResult> GetCities()
         {
-            return View();
+            return Ok(await _cityService.GetAllCities());
         }
     }
 }

@@ -2,9 +2,7 @@
 {
     public class CountryDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public IEnumerable<CityDTO> Cities { get; set; }
+        public long Id { get; set; }
+        public required string Name { get; set; }
     }
 }

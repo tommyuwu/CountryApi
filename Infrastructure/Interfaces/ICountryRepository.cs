@@ -1,9 +1,8 @@
-﻿using Application.DTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Application.Interfaces
+namespace Infrastructure.Interfaces
 {
-    public interface ICountryService
+    public interface ICountryRepository
     {
         Task<List<Country>> GetAllCountries();
         Task<Country?> GetCountryById(long id);

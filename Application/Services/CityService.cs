@@ -1,43 +1,52 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Domain.Entities;
+using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class CiudadService : ICityService
+    public class CityService(ICityRepository cityRepository) : ICityService
     {
-        private readonly ICiudadRepository _ciudadRepository;
+        private readonly ICityRepository _cityRepository = cityRepository;
 
-        public CiudadService(ICiudadRepository ciudadRepository)
+        public async Task AddCity(City city)
         {
-            _ciudadRepository = ciudadRepository;
+            await _cityRepository.AddCity(city);
         }
 
-        public async Task<CiudadDTO> CrearCiudad(int paisId, string nombre)
+        public async Task DeleteCity(long id)
         {
-            // Validar nombre de la ciudad
-            if (string.IsNullOrEmpty(nombre))
-            {
-                throw new ArgumentException("El nombre de la ciudad es obligatorio.");
-            }
-
-            var ciudad = new Ciudad { Nombre = nombre, PaisId = paisId };
-            await _ciudadRepository.AddAsync(ciudad);
-            await _ciudadRepository.SaveChangesAsync();
-
-            return await MapearACiudadDTO(ciudad);
+            await _cityRepository.DeleteCity(id);
         }
 
-        // ... otros métodos de la interfaz ICiudadService
-
-        private async Task<CiudadDTO> MapearACiudadDTO(Ciudad ciudad)
+        public async Task<List<City>> GetAllCities()
         {
-            // Mapear las propiedades de Ciudad a CiudadDTO
-            return new CiudadDTO
+            return await _cityRepository.GetAllCities();
+        }
+
+        public async Task<List<City>> GetCitiesByCountryId(long countryId)
+        {
+            return await _cityRepository.GetCitiesByCountryId(countryId);
+        }
+
+        public Task<City?> GetCityById(long id)
+        {
+            return _cityRepository.GetCityById(id);
+        }
+
+        public async Task UpdateCity(City city)
+        {
+            await _cityRepository.UpdateCity(city);
+        }
+
+        private static CityDTO MapToCityDTO(City city)
+        {
+            return new CityDTO
             {
-                Id = ciudad.Id,
-                Nombre = ciudad.Nombre,
-                PaisId = ciudad.PaisId,
+                Id = city.Id,
+                Name = city.Name,
+                CountryId = city.CountryId,
             };
         }
     }
-
 }

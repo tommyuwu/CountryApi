@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Infrastructure.Data
 {
@@ -10,22 +11,13 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<Country> Paises { get; set; }
-        public DbSet<City> Ciudades { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Country>()
-                .ToTable("Paises")
-                .HasKey(p => p.Id);
-
-            modelBuilder.Entity<City>()
-                .ToTable("Ciudades")
-                .HasKey(c => c.Id)
-                .HasOne(c => c.C)
-                .WithMany(p => p.Ciudades)
-                .HasForeignKey(c => c.PaisId);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
-
 }
