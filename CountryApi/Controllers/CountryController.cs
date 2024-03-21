@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers
 {
     [ApiController]
-    [Route("api/v1/")]
+    [Route("api/")]
     public class CountriesController(ICountryService countryService) : Controller
     {
         private readonly ICountryService _countryService = countryService;
