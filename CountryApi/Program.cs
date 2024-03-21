@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite(/* your connection string */);
+    options.UseSqlite("Data Source=test.db", b => b.MigrationsAssembly("Application"));
 });
 
 builder.Services.AddTransient<ICityService, CityService>();
