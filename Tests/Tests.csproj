@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,17 +7,19 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-	  <PreserveCompilationContext>true</PreserveCompilationContext>
+	<PreserveCompilationContext>true</PreserveCompilationContext>
 
   </PropertyGroup>
 	
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.core" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
@@ -32,7 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-	  <ProjectReference Include="..\CountryApi\Web.csproj" />
+	<ProjectReference Include="..\CountryApi\Web.csproj" />
   </ItemGroup>
 
 </Project>

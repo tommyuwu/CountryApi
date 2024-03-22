@@ -27,8 +27,12 @@ namespace Infrastructure.Repositories
 
         public async Task UpdateCountry(Country country)
         {
-            _context.Countries.Update(country);
-            await _context.SaveChangesAsync();
+            var countryToUp = _context.Countries.Find(country.Id);
+            if (countryToUp != null)
+            {
+                _context.Countries.Update(countryToUp);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteCountry(long id)

@@ -26,7 +26,7 @@ namespace Application.Services
 
         public async Task<Country?> GetCountryById(long id)
         {
-            return await GetCountryById(id);
+            return await _countryRepository.GetCountryById(id);
         }
 
         public async Task UpdateCountry(Country country)

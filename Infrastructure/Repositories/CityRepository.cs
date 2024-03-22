@@ -32,8 +32,12 @@ namespace Infrastructure.Repositories
 
         public async Task UpdateCity(City city)
         {
-            _context.Cities.Update(city);
-            await _context.SaveChangesAsync();
+            var cityToUp = _context.Cities.Find(city.Id);
+            if (cityToUp != null)
+            {
+                _context.Cities.Remove(cityToUp);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteCity(long id)

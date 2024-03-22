@@ -1,6 +1,6 @@
-namespace Tests
+namespace Tests.UnitTests
 {
-    public class UnitTests
+    public class CountryUnitTests
     {
         [Fact]
         public void Test1()

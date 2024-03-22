@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers
 {
     [ApiController]
-    [Route("api/v1/")]
+    [Route("api/")]
     public class CityController(ICityService cityService) : Controller
     {
         private readonly ICityService _cityService = cityService;
